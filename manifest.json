@@ -1,9 +1,19 @@
 {
-  "name": "Where is the main colors ",
+  "manifest_version": 2,
+
+  "name": "what is the main color",
+  "description": "웹 페이지에서 사용된 주요 색상을 보여주는 프로그램",
   "version": "1.0",
-  "description": "find main colors in browser",
+
   "browser_action": {
     "default_popup": "popup.html"
   },
-  "manifest_version": 2
+  "permissions": ["activeTab", "tabs"],
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "all_frames": true,
+      "js": ["javascript/controller.js"]
+    }
+  ]
 }
