@@ -1,2 +1,7 @@
-#test {
+#WITMC_viewer {
+  position: sticky;
+  bottom: 50px;
+  width: 100px;
+  height: 100px;
+  background-color: #f2f2f2;
 }

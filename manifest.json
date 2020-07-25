@@ -1,19 +1,19 @@
 {
   "manifest_version": 2,
 
-  "name": "what is the main color",
-  "description": "웹 페이지에서 사용된 주요 색상을 보여주는 프로그램",
+  "name": "ColorViewer",
+  "description": "웹 페이지에서 사용된 주요 색상을 보여주는 칼라 분석도구",
   "version": "1.0",
-
   "browser_action": {
+    "default_title": "ColorViewer",
     "default_popup": "popup.html"
   },
-  "permissions": ["activeTab", "tabs"],
   "content_scripts": [
     {
       "matches": ["*://*/*"],
       "all_frames": true,
-      "js": ["javascript/controller.js"]
+      "js": ["js/content.js", "js/core.js"]
     }
-  ]
+  ],
+  "permissions": ["tabs", "http://*/*", "https://*/*", "file://*/*"]
 }
