@@ -1,32 +1,30 @@
-const getBodyDOM = async () => {
-  const bodyHTML = await getBodyHTML();
-  const bodyDOM = document.createElement("div");
-  bodyDOM.innerHTML = bodyHTML;
-  return bodyDOM;
+const getCurrentDocument = () => {
+  return window.document;
 };
 
-const getBodyHTML = () => {
-  return new Promise((resolve, reject) => {
-    try {
-      chrome.tabs.executeScript(
-        {
-          code: 'document.querySelector("body").innerHTML',
-        },
-        function (result) {
-          resolve(result[0]);
-        },
-      );
-    } catch (error) {
-      reject(error);
-    }
-  });
+const removeDuplicationColor = colors => {
+  return [...new Set(colors)];
 };
 
 const getAllStyles = bodyElement => {
-  return findStyle(bodyElement);
+  const styleArr = findStyle(bodyElement);
+  const a = removeDuplicationColor(styleArr);
+  return a;
+};
+
+const findColor = (style, styleArr) => {
+  styleArr.push(style.color);
+  styleArr.push(style.backgroundColor);
+  styleArr.push(style.borderTopColor);
+  styleArr.push(style.borderBottomColor);
+  styleArr.push(style.borderLeftColor);
+  styleArr.push(style.borderRightColor);
 };
 
 const findStyle = (element, styleArr = []) => {
+  const style = window.getComputedStyle(element);
+
+  findColor(style, styleArr);
   if (element.children) {
     for (var childElement of element.children) {
       findStyle(childElement, styleArr);
