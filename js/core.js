@@ -8,26 +8,33 @@ const removeDuplicationColor = colors => {
 
 const getAllStyles = bodyElement => {
   const styleArr = findStyle(bodyElement);
-  const a = removeDuplicationColor(styleArr);
-  return a;
+  console.log(styleArr);
+  return removeDuplicationColor(styleArr);
 };
 
-const findColor = (style, styleArr) => {
-  styleArr.push(style.color);
-  styleArr.push(style.backgroundColor);
-  styleArr.push(style.borderTopColor);
-  styleArr.push(style.borderBottomColor);
-  styleArr.push(style.borderLeftColor);
-  styleArr.push(style.borderRightColor);
+const findColor = style => {
+  const colors = [];
+
+  colors.push(style.color);
+  colors.push(style.backgroundColor);
+  colors.push(style.borderTopColor);
+  colors.push(style.borderBottomColor);
+  colors.push(style.borderLeftColor);
+  colors.push(style.borderRightColor);
+
+  return removeDuplicationColor(colors);
 };
 
 const findStyle = (element, styleArr = []) => {
   const style = window.getComputedStyle(element);
+  const colors = findColor(style);
 
-  findColor(style, styleArr);
+  styleArr = removeDuplicationColor(styleArr.concat(colors));
+
+  console.log(styleArr);
   if (element.children) {
     for (var childElement of element.children) {
-      findStyle(childElement, styleArr);
+      styleArr = findStyle(childElement, styleArr);
     }
   }
   return styleArr;
