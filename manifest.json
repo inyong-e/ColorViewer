@@ -12,7 +12,12 @@
     {
       "matches": ["*://*/*"],
       "run_at": "document_end",
-      "js": ["js/content.js", "js/core.js"]
+      "js": [
+        "js/content.js",
+        "js/core.js",
+        "lib/html2canvas.js",
+        "lib/html2canvas.min.js"
+      ]
     }
   ],
   "permissions": ["tabs", "http://*/*", "https://*/*", "file://*/*"]
