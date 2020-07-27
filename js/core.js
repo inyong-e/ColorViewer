@@ -56,8 +56,9 @@ const ignoreElements = element => {
 const checkBackgroundImage = element => {
   const isBackgroundImg =
     window.getComputedStyle(element).backgroundImage !== "none";
+
   if (isBackgroundImg) {
-    element.style.backgroundImage = "url()";
+    element.style.backgroundImage = "initial";
   }
 };
 
@@ -90,4 +91,16 @@ const makeCanvas = async () => {
   var data = imageData.data;
   console.log(data);
   return 1;
+};
+
+// TEST CODE
+
+const timer = (func, maxCount) => {
+  var start = new Date().getTime();
+  maxCount = maxCount ? maxCount : 1;
+  for (var n = 0; n < maxCount; n++) {
+    func();
+  }
+  var elapsed = new Date().getTime() - start;
+  return elapsed;
 };
