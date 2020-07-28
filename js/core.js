@@ -47,7 +47,7 @@ const findStyle = (element, styleArr = []) => {
   return styleArr;
 };
 
-// canvas
+// canvas core
 
 const ignoreElements = element => {
   return element.tagName.toLowerCase() === "img";
@@ -79,6 +79,7 @@ const makeCanvas = async () => {
   const canvas = await html2canvas(document.body, {
     backgroundColor: "white",
     allowTaint: true,
+    useCORS: true,
     scrollX: 0,
     scrollY: 0,
     ignoreElements,
@@ -92,6 +93,8 @@ const makeCanvas = async () => {
   console.log(data);
   return 1;
 };
+
+// analytics pixel
 
 // TEST CODE
 
