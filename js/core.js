@@ -91,7 +91,8 @@ const makeCanvas = async () => {
 
 // analytics pixel
 
-const getRGBColors = rgbData => {
+const getRGBColors = (rgbData, styleArr) => {
+  console.log(styleArr);
   const colors = getGroupingRgbData(rgbData);
   //// 여기에 설정한 색상과 매치하는 함수가 필요함.
 
@@ -161,21 +162,9 @@ const getTopColors = colors => {
 };
 
 const getSortingColors = topColorsArray => {
-  let totalPixel = 0;
-  for (let i = 0; i < topColorsArray.length - 1; i++) {
-    for (let j = i + 1; j < topColorsArray.length; j++) {
-      if (topColorsArray[i].count < topColorsArray[j].count) {
-        const temp = topColorsArray[i];
-        topColorsArray[i] = topColorsArray[j];
-        topColorsArray[j] = temp;
-
-        //// 여기 소팅 부분 array.sort()함수로 바꿀 수 있을지 확인하기
-      }
-    }
-    totalPixel += topColorsArray[i].count;
-  }
-  totalPixel += topColorsArray[topColorsArray.length - 1].count;
-  console.log("totalPixel:", totalPixel);
+  topColorsArray = topColorsArray.sort((color1, color2) => {
+    return color2.count - color1.count;
+  });
   return topColorsArray;
 };
 

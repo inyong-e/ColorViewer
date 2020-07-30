@@ -3,7 +3,7 @@ const exportColor = async () => {
   const styleArr = getAllStyles(document.body);
   const rgbData = await makeCanvas();
 
-  getRGBColors(rgbData);
+  getRGBColors(rgbData, styleArr);
 
   var elapsed = new Date().getTime() - start;
   console.log("실행 시간:", elapsed);
