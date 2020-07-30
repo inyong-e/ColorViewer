@@ -91,11 +91,43 @@ const makeCanvas = async () => {
 
 // analytics pixel
 
+const parseColorObj = styleArr => {
+  const actuallyUsedColors = [];
+
+  for (const colorStyle of styleArr) {
+    const subStringIndex = colorStyle.indexOf("(") + 1;
+    const colorData = colorStyle.substring(
+      subStringIndex,
+      colorStyle.length - 1,
+    );
+    const splitedColor = colorData.split(",");
+    const rgbData = {
+      r: Number(splitedColor[0]),
+      g: Number(splitedColor[1]),
+      b: Number(splitedColor[2]),
+    };
+    actuallyUsedColors.push(rgbData);
+  }
+  return actuallyUsedColors;
+};
+
+const findActuallyUsedColor = (colors, styleArr) => {
+  const actuallyColors = parseColorObj(styleArr);
+  colors = colors.filter(color =>
+    actuallyColors.find(
+      actuallyColor =>
+        actuallyColor.r === color.r &&
+        actuallyColor.g === color.g &&
+        actuallyColor.b === color.b,
+    ),
+  );
+  console.log(colors);
+};
+
 const getRGBColors = (rgbData, styleArr) => {
-  console.log(styleArr);
   const colors = getGroupingRgbData(rgbData);
   //// 여기에 설정한 색상과 매치하는 함수가 필요함.
-
+  findActuallyUsedColor(colors, styleArr);
   const topColors = getTopColors(colors);
   const sortingColors = getSortingColors(topColors);
   console.log(sortingColors);
