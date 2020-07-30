@@ -91,35 +91,32 @@ const makeCanvas = async () => {
 
 // analytics pixel
 
-const parseColorObj = styleArr => {
-  const actuallyUsedColors = [];
+const parseColorObj = colorStyleArr => {
+  const subStringIndex = colorStyleArr.indexOf("(") + 1;
+  const colorData = colorStyleArr.substring(
+    subStringIndex,
+    colorStyleArr.length - 1,
+  );
+  const splitedColor = colorData.split(",");
+  const actuallyColor = {
+    r: Number(splitedColor[0]),
+    g: Number(splitedColor[1]),
+    b: Number(splitedColor[2]),
+  };
 
-  for (const colorStyle of styleArr) {
-    const subStringIndex = colorStyle.indexOf("(") + 1;
-    const colorData = colorStyle.substring(
-      subStringIndex,
-      colorStyle.length - 1,
-    );
-    const splitedColor = colorData.split(",");
-    const rgbData = {
-      r: Number(splitedColor[0]),
-      g: Number(splitedColor[1]),
-      b: Number(splitedColor[2]),
-    };
-    actuallyUsedColors.push(rgbData);
-  }
-  return actuallyUsedColors;
+  return actuallyColor;
 };
 
-const findActuallyUsedColor = (colors, styleArr) => {
-  const actuallyColors = parseColorObj(styleArr);
+const findActuallyUsedColor = (colors, colorStyleArr) => {
   colors = colors.filter(color =>
-    actuallyColors.find(
-      actuallyColor =>
+    colorStyleArr.find(colorStyleArr => {
+      const actuallyColor = parseColorObj(colorStyleArr);
+      return (
         actuallyColor.r === color.r &&
         actuallyColor.g === color.g &&
-        actuallyColor.b === color.b,
-    ),
+        actuallyColor.b === color.b
+      );
+    }),
   );
   console.log(colors);
 };
