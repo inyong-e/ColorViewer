@@ -1,14 +1,11 @@
 const exportColor = async () => {
-  var start = new Date().getTime();
   const styleArr = getAllStyles(document.body);
-  const rgbData = await makeCanvas();
-
-  getRGBColors(rgbData, styleArr);
-
-  var elapsed = new Date().getTime() - start;
-  console.log("실행 시간:", elapsed);
-
-  return styleArr;
+  const canvasData = await makeCanvas();
+  const colorInfos = getRGBColors(canvasData.rgbData, styleArr);
+  return {
+    imageData: canvasData.imageData,
+    colorInfos,
+  };
 };
 
 chrome.runtime.onMessage.addListener(function (
@@ -16,13 +13,11 @@ chrome.runtime.onMessage.addListener(function (
   sender,
   sendResponse,
 ) {
-  let responseData = null;
   switch (clickEvent) {
     case "exportColor": {
-      responseData = exportColor().then(responseData => {
-        sendResponse(responseData);
-      });
+      exportColor().then(sendResponse);
       break;
     }
   }
+  return true;
 });
