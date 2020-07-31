@@ -140,10 +140,10 @@ const getGroupingRgbData = rgbData => {
     const key = `${r},${g},${b}`;
     const colorInfo = colorInfos.get(key);
     if (colorInfo) {
-      colorInfo.count = colorInfo.count + 1;
+      colorInfo.amount = colorInfo.amount + 1;
       colorInfos.set(key, colorInfo);
     } else {
-      colorInfos.set(key, { r, g, b, count: 1 });
+      colorInfos.set(key, { r, g, b, amount: 1 });
     }
   }
 
@@ -152,7 +152,7 @@ const getGroupingRgbData = rgbData => {
 
 const getSortingColors = colorInfos => {
   colorInfos = colorInfos.sort((color1, color2) => {
-    return color2.count - color1.count;
+    return color2.amount - color1.amount;
   });
   return colorInfos;
 };

@@ -9,7 +9,8 @@ const onClickExport = () => {
     const isValidURL = isValidUrl(tab.url);
     if (isValidURL) {
       chrome.tabs.sendMessage(tab.id, "exportColor", function (response) {
-        console.log("====>", response);
+        const { imageData, colorInfos } = response;
+        showColorChart(colorInfos);
       });
     } else {
       alert("ColorViewer doesn't work on Google Chrome webstore!");
