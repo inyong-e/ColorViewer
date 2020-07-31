@@ -91,72 +91,60 @@ const makeCanvas = async () => {
 
 // analytics pixel
 
-const parseColorObj = colorStyleArr => {
+const parseColorKey = colorStyleArr => {
   const subStringIndex = colorStyleArr.indexOf("(") + 1;
   const colorData = colorStyleArr.substring(
     subStringIndex,
     colorStyleArr.length - 1,
   );
-  const splitedColor = colorData.split(",");
-  const actuallyColor = {
-    r: Number(splitedColor[0]),
-    g: Number(splitedColor[1]),
-    b: Number(splitedColor[2]),
-  };
 
-  return actuallyColor;
+  return colorData.replace(/ /gi, "");
 };
 
 const findActuallyUsedColor = (colors, colorStyleArr) => {
-  colors = colors.filter(color =>
-    colorStyleArr.find(colorStyleArr => {
-      const actuallyColor = parseColorObj(colorStyleArr);
-      return (
-        actuallyColor.r === color.r &&
-        actuallyColor.g === color.g &&
-        actuallyColor.b === color.b
-      );
-    }),
-  );
-  console.log(colors);
+  const result = [];
+
+  for (const colorStyle of colorStyleArr) {
+    const parsingColorKey = parseColorKey(colorStyle);
+    const colorInfo = colors.get(parsingColorKey);
+    if (colorInfo) {
+      result.push(colorInfo);
+    }
+  }
+
+  return result;
 };
 
 const getRGBColors = (rgbData, styleArr) => {
   const colors = getGroupingRgbData(rgbData);
-  //// 여기에 설정한 색상과 매치하는 함수가 필요함.
+
   findActuallyUsedColor(colors, styleArr);
-  const topColors = getTopColors(colors);
-  const sortingColors = getSortingColors(topColors);
-  console.log(sortingColors);
+  // const topColors = getTopColors(colors);
+  // const sortingColors = getSortingColors(topColors);
+  // console.log(sortingColors);
 };
 
 const getGroupingRgbData = rgbData => {
   const PIXEL_MEASUREMENT = 80; // 4 단위로 끊어야 함.
 
-  const colors = [];
+  const colorInfos = new Map();
   for (let i = 0; i < rgbData.length; i += PIXEL_MEASUREMENT) {
-    let isExistColor = false;
     const r = rgbData[i];
     const g = rgbData[i + 1];
     const b = rgbData[i + 2];
+
     if (r > 250 && g > 250 && b > 250) continue;
-    for (const color of colors) {
-      if (color.r === r && color.g === g && color.b === b) {
-        color.count++;
-        isExistColor = true;
-        break;
-      }
-    }
-    if (!isExistColor) {
-      colors.push({
-        r,
-        g,
-        b,
-        count: 1,
-      });
+    const key = `${r},${g},${b}`;
+    const colorInfo = colorInfos.get(key);
+    if (colorInfo) {
+      colorInfo.count = colorInfo.count + 1;
+      colorInfos.set(key, colorInfo);
+    } else {
+      colorInfos.set(key, { r, g, b, count: 1 });
     }
   }
-  return colors;
+
+  return colorInfos;
 };
 
 const minOfColorsArray = topColorsArray => {
