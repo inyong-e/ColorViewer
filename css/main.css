@@ -45,6 +45,15 @@
 .highcharts-data-table tr:hover {
   background: #f1f7ff;
 }
+.highcharts-container {
+  outline: none;
+}
+
+.highcharts-description {
+  color: rgb(130, 130, 130);
+  text-align: center;
+  font-size: 8px;
+}
 
 input[type="number"] {
   min-width: 50px;

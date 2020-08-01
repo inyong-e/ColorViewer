@@ -2,19 +2,23 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="./css/main.css" />
+    <link rel="stylesheet" type="text/css" href="./css/loading.css" />
   </head>
-  <body style="width: 320px; height: 400px;">
-    <div id="test">
-      <button id="export-btn">
-        export
-      </button>
+  <body style="width: 420px; height: 65px;">
+    <div class="loading-bar">
+      <div class="ldio-k85na0qrsp">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
     </div>
-
+    <p id="loading-text">
+      Loading..
+    </p>
     <figure class="highcharts-figure">
       <div id="container"></div>
-      <p class="highcharts-description">
-        exclude image in web page.
-      </p>
     </figure>
     <script src="./lib//highchart/highcharts.js"></script>
     <script src="./lib//highchart/exporting.js"></script>

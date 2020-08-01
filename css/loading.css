@@ -1,0 +1,100 @@
+@keyframes ldio-k85na0qrsp {
+  0% {
+    transform: translate(5px, 39px) scale(0);
+  }
+  25% {
+    transform: translate(5px, 39px) scale(0);
+  }
+  50% {
+    transform: translate(5px, 39px) scale(1);
+  }
+  75% {
+    transform: translate(39px, 39px) scale(1);
+  }
+  100% {
+    transform: translate(73px, 39px) scale(1);
+  }
+}
+@keyframes ldio-k85na0qrsp-r {
+  0% {
+    transform: translate(73px, 39px) scale(1);
+  }
+  100% {
+    transform: translate(73px, 39px) scale(0);
+  }
+}
+@keyframes ldio-k85na0qrsp-c {
+  0% {
+    background: #e15b64;
+  }
+  25% {
+    background: #abbd81;
+  }
+  50% {
+    background: #f8b26a;
+  }
+  75% {
+    background: #607bf4;
+  }
+  100% {
+    background: #e15b64;
+  }
+}
+.ldio-k85na0qrsp div {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  transform: translate(39px, 39px) scale(1);
+  background: #e15b64;
+  animation: ldio-k85na0qrsp 1.923076923076923s infinite
+    cubic-bezier(0, 0.5, 0.5, 1);
+}
+.ldio-k85na0qrsp div:nth-child(1) {
+  background: #607bf4;
+  transform: translate(73px, 39px) scale(1);
+  animation: ldio-k85na0qrsp-r 0.4807692307692307s infinite
+      cubic-bezier(0, 0.5, 0.5, 1),
+    ldio-k85na0qrsp-c 1.923076923076923s infinite step-start;
+}
+.ldio-k85na0qrsp div:nth-child(2) {
+  animation-delay: -0.4807692307692307s;
+  background: #e15b64;
+}
+.ldio-k85na0qrsp div:nth-child(3) {
+  animation-delay: -0.9615384615384615s;
+  background: #607bf4;
+}
+.ldio-k85na0qrsp div:nth-child(4) {
+  animation-delay: -1.4423076923076923s;
+  background: #f8b26a;
+}
+.ldio-k85na0qrsp div:nth-child(5) {
+  animation-delay: -1.923076923076923s;
+  background: #abbd81;
+}
+.loading-bar {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  margin: auto;
+  overflow: hidden;
+  background: #ffffff;
+}
+.ldio-k85na0qrsp {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(0.48);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-k85na0qrsp div {
+  box-sizing: content-box;
+}
+#loading-text {
+  font-size: 8px;
+  text-align: center;
+  margin-top: -12px;
+  color: rgb(130, 130, 130);
+}

@@ -35,7 +35,7 @@ const showColorChart = colorInfos => {
     },
     exporting: { enabled: false },
     title: {
-      text: "Analytics Color Graph",
+      text: "The Analized Color Graph",
     },
     tooltip: {
       pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
@@ -50,14 +50,14 @@ const showColorChart = colorInfos => {
         allowPointSelect: true,
         cursor: "pointer",
         dataLabels: {
-          enabled: true,
-          format: "<b>{point.name}</b>: {point.percentage:.1f} %",
+          enabled: false,
         },
+        showInLegend: true,
       },
     },
     series: [
       {
-        name: "Brands",
+        name: "Persent",
         colorByPoint: true,
         data,
       },

@@ -83,7 +83,6 @@ const makeCanvas = async () => {
     ignoreElements,
     onclone,
   });
-  document.body.appendChild(canvas); // <= 이따가 이거 지울 것..!!!!!
 
   const imageData = canvas
     .getContext("2d")
