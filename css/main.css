@@ -55,6 +55,10 @@
   font-size: 8px;
 }
 
+#highchart-wrapper {
+  width: 420px;
+}
+
 input[type="number"] {
   min-width: 50px;
 }
