@@ -88,7 +88,7 @@ const makeCanvas = async () => {
     .getContext("2d")
     .getImageData(0, 0, canvas.width, canvas.height);
   const canvasData = {
-    rgbData: imageData.data,
+    rgbDataArr: imageData.data,
     imageData: canvas.toDataURL(),
   };
   return canvasData;
@@ -120,20 +120,20 @@ const findActuallyUsedColor = (colors, colorStyleArr) => {
   return result;
 };
 
-const getRGBColors = (rgbData, styleArr) => {
-  const colors = getGroupingRgbData(rgbData);
+const getRGBColors = (rgbDataArr, styleArr) => {
+  const colors = getGroupingRgbData(rgbDataArr);
 
   const colorInfos = findActuallyUsedColor(colors, styleArr);
   const sortingColors = getSortingColors(colorInfos);
   return sortingColors;
 };
 
-const getGroupingRgbData = rgbData => {
+const getGroupingRgbData = rgbDataArr => {
   const colorInfos = new Map();
-  for (let i = 0; i < rgbData.length; i += PIXEL_MEASUREMENT) {
-    const r = rgbData[i];
-    const g = rgbData[i + 1];
-    const b = rgbData[i + 2];
+  for (let i = 0; i < rgbDataArr.length; i += PIXEL_MEASUREMENT) {
+    const r = rgbDataArr[i];
+    const g = rgbDataArr[i + 1];
+    const b = rgbDataArr[i + 2];
 
     if (r > 250 && g > 250 && b > 250) continue;
     if (r < 10 && g < 10 && b < 10) continue;

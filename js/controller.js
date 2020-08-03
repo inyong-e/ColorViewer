@@ -1,8 +1,13 @@
 const hideLoadingBar = () => {
   const loadingBar = document.getElementsByClassName("loading-bar")[0];
-  const loadingText = document.getElementById("loading-text");
   loadingBar.style.display = "none";
-  loadingText.style.display = "none";
+  setStatusText("");
+};
+
+const setStatusText = text => {
+  const statusText = document.getElementById("status-text");
+  statusText.style.margin = "auto";
+  statusText.innerText = text;
 };
 
 const isValidUrl = url => {
@@ -16,9 +21,15 @@ const excuteToAnalyze = () => {
     const isValidURL = isValidUrl(tab.url);
     if (isValidURL) {
       chrome.tabs.sendMessage(tab.id, "exportColor", function (response) {
-        const { imageData, colorInfos } = response;
-        showColorChart(colorInfos);
-        hideLoadingBar();
+        if (response) {
+          const { imageData, colorInfos } = response;
+          hideLoadingBar();
+          setStatusText("");
+          showColorChart(colorInfos);
+        } else {
+          hideLoadingBar();
+          setStatusText("Doesn't work properly on that web page.");
+        }
       });
     } else {
       alert("ColorViewer doesn't work on Google Chrome webstore!");
