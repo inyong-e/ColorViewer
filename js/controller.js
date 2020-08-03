@@ -34,6 +34,7 @@ const excuteToAnalyze = () => {
       if (response) {
         const { imageData, colorInfos } = response;
         showColorChart(colorInfos);
+        saveChromeStorage(tab.url, colorInfos);
       } else {
         hideLoadingBar();
         setStatusText("Doesn't work properly on that web page.");

@@ -125,6 +125,5 @@ const showColorChart = colorInfos => {
 
   hideLoadingBar();
   setStatusText("");
-  saveChromeStorage(tab.url, colorInfos);
   drawCharts(data);
 };
