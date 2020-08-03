@@ -1,5 +1,4 @@
 const isGrayScale = (r, g, b) => {
-  console.log(r, g, b);
   const ave = (r + g + b) / 3;
   const diff = Math.max(r, g, b) - Math.min(r, g, b);
   return (
@@ -66,10 +65,7 @@ const setChartData = colorInfos => {
   return chartData;
 };
 
-const showColorChart = colorInfos => {
-  const persentageColors = setChartData(colorInfos);
-  const data = checkValidColor(persentageColors);
-
+const drawCharts = data => {
   Highcharts.chart("container", {
     chart: {
       plotBackgroundColor: null,
@@ -121,4 +117,14 @@ const showColorChart = colorInfos => {
       },
     ],
   });
+};
+
+const showColorChart = colorInfos => {
+  const persentageColors = setChartData(colorInfos);
+  const data = checkValidColor(persentageColors);
+
+  hideLoadingBar();
+  setStatusText("");
+  saveChromeStorage(tab.url, colorInfos);
+  drawCharts(data);
 };
