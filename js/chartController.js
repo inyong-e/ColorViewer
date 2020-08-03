@@ -10,20 +10,20 @@ const isGrayScale = (r, g, b) => {
   );
 };
 
-const checkValidColor = persentageColors => {
-  const firstColorData = persentageColors[0];
+const checkValidColor = percentageColors => {
+  const firstColorData = percentageColors[0];
   if (isGrayScale(...firstColorData.name.split(","))) {
     if (firstColorData.y > 60) {
-      persentageColors.shift();
+      percentageColors.shift();
     }
   }
 
-  persentageColors = persentageColors.slice(0, 20);
+  percentageColors = percentageColors.slice(0, 20);
   let isAlreadyGrayScale = false;
   let checkGrayScale = false;
-  persentageColors = persentageColors.filter(persentageColor => {
-    if (persentageColors.length >= 20) {
-      checkGrayScale = isGrayScale(...persentageColor.name.split(","));
+  percentageColors = percentageColors.filter(percentageColor => {
+    if (percentageColors.length >= 20) {
+      checkGrayScale = isGrayScale(...percentageColor.name.split(","));
       if (!checkGrayScale && !isAlreadyGrayScale) {
         isAlreadyGrayScale = true;
       }
@@ -31,10 +31,10 @@ const checkValidColor = persentageColors => {
 
     return (
       !(checkGrayScale && isAlreadyGrayScale) &&
-      (persentageColors.length < 10 ? true : persentageColor.y >= 100)
+      (percentageColors.length < 10 ? true : percentageColor.y >= 100)
     );
   });
-  return persentageColors;
+  return percentageColors;
 };
 
 const componentToHex = c => {
@@ -111,7 +111,7 @@ const drawCharts = data => {
     },
     series: [
       {
-        name: "Persent",
+        name: "Percent",
         colorByPoint: true,
         data,
       },
@@ -120,8 +120,8 @@ const drawCharts = data => {
 };
 
 const showColorChart = colorInfos => {
-  const persentageColors = setChartData(colorInfos);
-  const data = checkValidColor(persentageColors);
+  const percentageColors = setChartData(colorInfos);
+  const data = checkValidColor(percentageColors);
 
   hideLoadingBar();
   setStatusText("");
