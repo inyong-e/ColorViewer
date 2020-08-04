@@ -13,9 +13,9 @@ const removeDuplicationColor = colors => {
   return [...new Set(colors)];
 };
 
-const getAllStyles = bodyElement => {
-  const styleArr = findStyle(bodyElement);
-  return removeDuplicationColor(styleArr);
+const getAppliedAttributeColors = bodyElement => {
+  const attributeColors = findStyle(bodyElement);
+  return removeDuplicationColor(attributeColors);
 };
 
 const findColor = style => {
@@ -31,18 +31,18 @@ const findColor = style => {
   return removeDuplicationColor(colors);
 };
 
-const findStyle = (element, styleArr = []) => {
+const findStyle = (element, attributeColors = []) => {
   const style = window.getComputedStyle(element);
   const colors = findColor(style);
 
-  styleArr = removeDuplicationColor(styleArr.concat(colors));
+  attributeColors = removeDuplicationColor(attributeColors.concat(colors));
 
   if (element.children) {
     for (var childElement of element.children) {
-      styleArr = findStyle(childElement, styleArr);
+      attributeColors = findStyle(childElement, attributeColors);
     }
   }
-  return styleArr;
+  return attributeColors;
 };
 
 // canvas core
@@ -61,7 +61,6 @@ const checkBackgroundImage = element => {
 };
 
 const findElement = element => {
-  /* add set option about DOM */
   checkBackgroundImage(element);
 
   for (const childElement of element.children) {
@@ -120,10 +119,10 @@ const findActuallyUsedColor = (colors, colorStyleArr) => {
   return result;
 };
 
-const getRGBColors = (rgbDataArr, styleArr) => {
+const getRGBColors = (rgbDataArr, attributeColors) => {
   const colors = getGroupingRgbData(rgbDataArr);
 
-  const colorInfos = findActuallyUsedColor(colors, styleArr);
+  const colorInfos = findActuallyUsedColor(colors, attributeColors);
   const sortingColors = getSortingColors(colorInfos);
   return sortingColors;
 };
@@ -137,6 +136,7 @@ const getGroupingRgbData = rgbDataArr => {
 
     if (r > 250 && g > 250 && b > 250) continue;
     if (r < 10 && g < 10 && b < 10) continue;
+
     const key = `${r},${g},${b}`;
     const colorInfo = colorInfos.get(key);
     if (colorInfo) {

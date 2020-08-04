@@ -1,8 +1,8 @@
 const exportColor = async () => {
-  const styleArrInDOM = getAllStyles(document.body);
+  const attributeColorsInDOM = getAppliedAttributeColors(document.body);
   const canvasData = await makeCanvas();
 
-  const colorInfos = getRGBColors(canvasData.rgbDataArr, styleArrInDOM);
+  const colorInfos = getRGBColors(canvasData.rgbDataArr, attributeColorsInDOM);
   if (colorInfos.length === 0) return null;
 
   return {

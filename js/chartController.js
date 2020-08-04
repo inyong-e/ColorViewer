@@ -10,7 +10,7 @@ const isGrayScale = (r, g, b) => {
   );
 };
 
-const checkValidColor = percentageColors => {
+const analyzeDrawingColorData = percentageColors => {
   const firstColorData = percentageColors[0];
   if (isGrayScale(...firstColorData.name.split(","))) {
     if (firstColorData.y > 60) {
@@ -21,6 +21,7 @@ const checkValidColor = percentageColors => {
   percentageColors = percentageColors.slice(0, 20);
   let isAlreadyGrayScale = false;
   let checkGrayScale = false;
+
   percentageColors = percentageColors.filter(percentageColor => {
     if (percentageColors.length >= 20) {
       checkGrayScale = isGrayScale(...percentageColor.name.split(","));
@@ -121,7 +122,7 @@ const drawCharts = data => {
 
 const showColorChart = colorInfos => {
   const percentageColors = setChartData(colorInfos);
-  const data = checkValidColor(percentageColors);
+  const data = analyzeDrawingColorData(percentageColors);
 
   hideLoadingBar();
   setStatusText("");
