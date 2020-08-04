@@ -19,14 +19,10 @@ const getAppliedAttributeColors = bodyElement => {
 };
 
 const findColor = style => {
-  const colors = [];
-
-  for (const property of COLOR_PROPERTIES) {
+  const colors = COLOR_PROPERTIES.reduce((accArr, property) => {
     const propertyValue = style[property];
-    if (propertyValue) {
-      colors.push(propertyValue);
-    }
-  }
+    return propertyValue ? [...accArr, propertyValue] : accArr;
+  }, []);
 
   return removeDuplicationColor(colors);
 };
@@ -106,17 +102,11 @@ const parseColorKey = colorStyleArr => {
 };
 
 const findActuallyUsedColor = (colors, colorStyleArr) => {
-  const result = [];
-
-  for (const colorStyle of colorStyleArr) {
+  return colorStyleArr.reduce((accArr, colorStyle) => {
     const parsingColorKey = parseColorKey(colorStyle);
     const colorInfo = colors.get(parsingColorKey);
-    if (colorInfo) {
-      result.push(colorInfo);
-    }
-  }
-
-  return result;
+    return colorInfo ? [...accArr, colorInfo] : accArr;
+  }, []);
 };
 
 const getRGBColors = (rgbDataArr, attributeColors) => {
