@@ -10,7 +10,6 @@
 
 ![image](https://user-images.githubusercontent.com/13481627/89441103-9e066f00-d787-11ea-839b-f0b4e825fb5e.png)
 
-
 ## Installation
 
 해당 프로젝트를 다운로드 후, 'chrome://extensions'에 접속하여 '압축 해제된 확장 프로그램을 로드합니다.' 기능을 통해 로드 하십시오.
@@ -24,6 +23,11 @@
 버그를 발견하셨거나 기능 요청이 있으시면 GitHub Issues 목록에 관련 내용을 작성해 주시면 감사하겠습니다.
 
 https://github.com/inyong-e/ColorViewer/issues
+
+## Using Library
+
+- https://github.com/niklasvh/html2canvas
+- https://github.com/highcharts/highcharts
 
 ## Author
 
