@@ -11,12 +11,12 @@ const isGrayScale = (r, g, b) => {
 };
 
 const analyzeDrawingColorData = percentageColors => {
-  const firstColorData = percentageColors[0];
-  if (isGrayScale(...firstColorData.name.split(","))) {
-    if (firstColorData.y > 60) {
-      percentageColors.shift();
-    }
-  }
+  // const firstColorData = percentageColors[0];
+  // if (isGrayScale(...firstColorData.name.split(","))) {
+  //   if (firstColorData.y > 60) {
+  //     percentageColors.shift();
+  //   }
+  // }
 
   percentageColors = percentageColors.slice(0, 20);
   let isAlreadyGrayScale = false;
@@ -54,10 +54,25 @@ const rgbToHex = (r, g, b) => {
 };
 
 const setChartData = colorInfos => {
+  let totalAmount = colorInfos.reduce(
+    (acc, colorInfo) => acc + colorInfo.amount,
+    0,
+  );
+
+  const calculatePercentage = colorInfo =>
+    Math.round((colorInfo.amount / totalAmount) * 10000) / 100;
+
   const chartData = colorInfos.map(colorInfo => {
     const { r, g, b } = colorInfo;
 
+    let visible = true;
+    if (calculatePercentage(colorInfo) >= 60) {
+      totalAmount -= colorInfo.amount;
+      visible = false;
+    }
+
     return {
+      visible,
       hex: rgbToHex(r, g, b),
       color: `rgb(${r},${g},${b})`,
       name: `${r},${g},${b}`,
