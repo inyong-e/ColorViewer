@@ -8,6 +8,9 @@
 
 - 분석된 각 색상에 대해, 웹 페이지 내 사용되고 있는 위치를 표시.
 
+![image](https://user-images.githubusercontent.com/13481627/89440946-5d0e5a80-d787-11ea-9ff8-1a12235e7627.png)
+
+
 ## Installation
 
 해당 프로젝트를 다운로드 후, 'chrome://extensions'에 접속하여 '압축 해제된 확장 프로그램을 로드합니다.' 기능을 통해 로드 하십시오.
