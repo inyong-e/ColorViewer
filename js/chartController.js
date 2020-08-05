@@ -66,8 +66,11 @@ const setChartData = colorInfos => {
     const { r, g, b } = colorInfo;
 
     let visible = true;
-    if (calculatePercentage(colorInfo) >= 60) {
+    const percentage = calculatePercentage(colorInfo);
+    if (percentage >= 60) {
       totalAmount -= colorInfo.amount;
+      visible = false;
+    } else if (percentage < 1) {
       visible = false;
     }
 
