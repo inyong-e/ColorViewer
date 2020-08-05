@@ -23,15 +23,16 @@ const analyzeDrawingColorData = percentageColors => {
   let checkGrayScale = false;
 
   percentageColors = percentageColors.filter(percentageColor => {
-    if (percentageColors.length >= 20) {
+    if (percentageColors.length === 20) {
       checkGrayScale = isGrayScale(...percentageColor.name.split(","));
       if (!checkGrayScale && !isAlreadyGrayScale) {
         isAlreadyGrayScale = true;
       }
     }
 
+    const isSmallGrayScale = checkGrayScale && isAlreadyGrayScale;
     return (
-      !(checkGrayScale && isAlreadyGrayScale) &&
+      !isSmallGrayScale &&
       (percentageColors.length < 10 ? true : percentageColor.y >= 100)
     );
   });

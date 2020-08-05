@@ -21,7 +21,7 @@ const isValidUrl = url => {
   );
 };
 
-const excuteToAnalyze = () => {
+const executeToAnalyze = () => {
   chrome.tabs.getSelected(null, tab => {
     const isValidURL = isValidUrl(tab.url);
 
@@ -51,7 +51,7 @@ chrome.tabs.getSelected(null, tab => {
     if (tab.url === data.url && isValidStorageData) {
       showColorChart(data.colorInfos);
     } else {
-      excuteToAnalyze();
+      executeToAnalyze();
     }
   });
 });
