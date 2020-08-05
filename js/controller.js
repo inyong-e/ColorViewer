@@ -21,25 +21,23 @@ const isValidUrl = url => {
   );
 };
 
-const executeToAnalyze = () => {
-  chrome.tabs.getSelected(null, tab => {
-    const isValidURL = isValidUrl(tab.url);
+const executeToAnalyze = tab => {
+  const isValidURL = isValidUrl(tab.url);
 
-    if (!isValidURL) {
-      alert("ColorViewer doesn't work on Google Chrome webstore!");
-      return;
+  if (!isValidURL) {
+    alert("ColorViewer doesn't work on Google Chrome webstore!");
+    return;
+  }
+
+  chrome.tabs.sendMessage(tab.id, "exportColor", response => {
+    if (response) {
+      const { imageData, colorInfos } = response;
+      showColorChart(colorInfos);
+      saveChromeStorage(tab.url, colorInfos);
+    } else {
+      hideLoadingBar();
+      setStatusText("Doesn't work properly on that web page.");
     }
-
-    chrome.tabs.sendMessage(tab.id, "exportColor", response => {
-      if (response) {
-        const { imageData, colorInfos } = response;
-        showColorChart(colorInfos);
-        saveChromeStorage(tab.url, colorInfos);
-      } else {
-        hideLoadingBar();
-        setStatusText("Doesn't work properly on that web page.");
-      }
-    });
   });
 };
 
@@ -51,7 +49,7 @@ chrome.tabs.getSelected(null, tab => {
     if (tab.url === data.url && isValidStorageData) {
       showColorChart(data.colorInfos);
     } else {
-      executeToAnalyze();
+      executeToAnalyze(tab);
     }
   });
 });
