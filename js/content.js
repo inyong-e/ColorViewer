@@ -6,7 +6,7 @@ const exportColor = async () => {
   if (colorInfos.length === 0) return null;
 
   return {
-    imageData: canvasData.imageData,
+    // imageData: canvasData.imageData,
     colorInfos,
   };
 };

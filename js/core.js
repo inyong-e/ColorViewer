@@ -84,7 +84,7 @@ const makeCanvas = async () => {
     .getImageData(0, 0, canvas.width, canvas.height);
   const canvasData = {
     rgbDataArr: imageData.data,
-    imageData: canvas.toDataURL(),
+    // imageData: canvas.toDataURL(),
   };
   return canvasData;
 };

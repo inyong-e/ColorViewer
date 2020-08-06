@@ -31,7 +31,7 @@ const executeToAnalyze = tab => {
 
   chrome.tabs.sendMessage(tab.id, "exportColor", response => {
     if (response) {
-      const { imageData, colorInfos } = response;
+      const { colorInfos } = response;
       showColorChart(colorInfos);
       saveChromeStorage(tab.url, colorInfos);
     } else {
