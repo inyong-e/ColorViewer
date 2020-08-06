@@ -11,13 +11,6 @@ const isGrayScale = (r, g, b) => {
 };
 
 const analyzeDrawingColorData = percentageColors => {
-  // const firstColorData = percentageColors[0];
-  // if (isGrayScale(...firstColorData.name.split(","))) {
-  //   if (firstColorData.y > 60) {
-  //     percentageColors.shift();
-  //   }
-  // }
-
   percentageColors = percentageColors.slice(0, 20);
   let isAlreadyGrayScale = false;
   let checkGrayScale = false;
@@ -88,6 +81,7 @@ const setChartData = colorInfos => {
 const drawCharts = data => {
   Highcharts.chart("container", {
     chart: {
+      backgroundColor: "transparent",
       plotBackgroundColor: null,
       plotBorderWidth: null,
       plotShadow: false,
@@ -120,13 +114,17 @@ const drawCharts = data => {
       },
     },
     legend: {
+      backgroundColor: "rgb(248,248,248)",
+      borderRadius: 5,
       enabled: true,
-      layout: "vertical",
-      align: "right",
-      verticalAlign: "middle",
+      itemMarginTop: 6,
+      itemMarginBottom: 6,
+      itemStyle: {
+        fontSize: "10px",
+        color: "rgb(30,30,30)",
+      },
       labelFormatter: function () {
-        // return this.name + " - " + this.y + "%";
-        return this.y + " %";
+        return this.hex;
       },
     },
     series: [
