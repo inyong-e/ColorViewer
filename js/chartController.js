@@ -115,7 +115,7 @@ const drawCharts = data => {
       },
     },
     legend: {
-      backgroundColor: "rgb(248,248,248)",
+      backgroundColor: "white",
       borderRadius: 5,
       enabled: true,
       itemMarginTop: 6,
