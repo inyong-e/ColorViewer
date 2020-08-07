@@ -105,6 +105,14 @@ const drawCharts = data => {
     },
     plotOptions: {
       pie: {
+        point: {
+          events: {
+            click: function (mouseEvent) {
+              // console.log(this.name, this.hex, !this.selected);
+              onClickColorInChart(this.name, this.hex, !this.selected);
+            },
+          },
+        },
         allowPointSelect: true,
         cursor: "pointer",
         dataLabels: {

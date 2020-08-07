@@ -21,15 +21,32 @@ const isValidUrl = url => {
   );
 };
 
+const onClickColorInChart = (rgb, hex, isSelect) => {
+  runChromeTabsGetSelected(tab => {
+    chrome.tabs.sendMessage(
+      tab.id,
+      { clickEvent: "highlightSelectedColor", rgb, hex, isSelect },
+      response => {
+        if (response) {
+          console.log(response);
+        } else {
+          hideLoadingBar();
+          setStatusText("Doesn't work properly on that web page.");
+        }
+      },
+    );
+  });
+};
+
 const executeToAnalyze = tab => {
   const isValidURL = isValidUrl(tab.url);
 
   if (!isValidURL) {
-    alert("ColorViewer doesn't work on Google Chrome webstore!");
+    alert("ColorViewer doesn't work on Google Chrome webStore!");
     return;
   }
 
-  chrome.tabs.sendMessage(tab.id, "exportColor", response => {
+  chrome.tabs.sendMessage(tab.id, { clickEvent: "exportColor" }, response => {
     if (response) {
       const { colorInfos } = response;
       showColorChart(colorInfos);
@@ -41,7 +58,13 @@ const executeToAnalyze = tab => {
   });
 };
 
-chrome.tabs.getSelected(null, tab => {
+const runChromeTabsGetSelected = cb => {
+  chrome.tabs.getSelected(null, tab => {
+    cb(tab);
+  });
+};
+
+const executeColorViewer = tab => {
   chrome.storage.sync.get(data => {
     const isValidStorageData =
       data && data.url && data.colorInfos && data.colorInfos.length;
@@ -52,4 +75,8 @@ chrome.tabs.getSelected(null, tab => {
       executeToAnalyze(tab);
     }
   });
+};
+
+runChromeTabsGetSelected(tab => {
+  executeColorViewer(tab);
 });
