@@ -108,7 +108,8 @@ const drawCharts = data => {
         allowPointSelect: true,
         cursor: "pointer",
         dataLabels: {
-          enabled: false,
+          enabled: true,
+          format: "<b>{point.hex}</b>:<br>{point.percentage:.1f} %",
         },
         showInLegend: true,
       },
