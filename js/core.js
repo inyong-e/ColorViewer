@@ -9,6 +9,12 @@ const COLOR_PROPERTIES = [
 
 const PIXEL_MEASUREMENT = 80; // 4 단위로 끊어야 함.
 
+const executeHighlighting = (rgb, hex, isSelect) => {
+  console.log(1);
+  const a = document.getElementById("search_btn");
+  a.className = a.className + " " + "selected-chart-color";
+};
+
 const removeDuplicationColor = colors => {
   return [...new Set(colors)];
 };

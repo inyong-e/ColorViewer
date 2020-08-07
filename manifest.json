@@ -12,6 +12,7 @@
     {
       "matches": ["*://*/*"],
       "run_at": "document_end",
+      "css": ["css/contentStyle.css"],
       "js": [
         "js/content.js",
         "js/core.js",
@@ -20,5 +21,6 @@
       ]
     }
   ],
+
   "permissions": ["tabs", "http://*/*", "https://*/*", "file://*/*", "storage"]
 }

@@ -20,7 +20,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     }
     case "highlightSelectedColor": {
       const { rgb, hex, isSelect } = message;
-      console.log(rgb, hex, isSelect);
+      executeHighlighting(rgb, hex, isSelect);
       sendResponse("123");
       break;
     }
