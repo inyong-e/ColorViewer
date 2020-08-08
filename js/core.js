@@ -42,6 +42,7 @@ const executeHighlighting = (rgb, isSelect) => {
   };
 
   if (isSelect) {
+    cancelHighlighting();
     findSetHighlightingElement(document.body);
   } else {
     cancelHighlighting();
