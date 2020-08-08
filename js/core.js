@@ -1,3 +1,5 @@
+const HIGHLIGHTING_CLASS_NAME = "ColorViewer-selected-chart-color";
+
 const COLOR_PROPERTIES = [
   "color",
   "backgroundColor",
@@ -9,10 +11,30 @@ const COLOR_PROPERTIES = [
 
 const PIXEL_MEASUREMENT = 80; // 4 단위로 끊어야 함.
 
+const setClassNameForHighlighting = element => {
+  element.className = element.className + " " + HIGHLIGHTING_CLASS_NAME;
+};
+
 const executeHighlighting = (rgb, hex, isSelect) => {
-  console.log(1);
-  const a = document.getElementById("search_btn");
-  a.className = a.className + " " + "selected-chart-color";
+  const recul = element => {
+    const style = window.getComputedStyle(element);
+    const result = COLOR_PROPERTIES.some(COLOR => {
+      const propertyValue = style[COLOR];
+
+      return rgb === parseColorKey(propertyValue);
+    });
+    if (result) {
+      setClassNameForHighlighting(element);
+    }
+
+    if (element.children) {
+      for (var childElement of element.children) {
+        attributeColors = recul(childElement);
+      }
+    }
+  };
+
+  recul(document.body);
 };
 
 const removeDuplicationColor = colors => {

@@ -22,13 +22,16 @@ const isValidUrl = url => {
 };
 
 const onClickColorInChart = (rgb, hex, isSelect) => {
+  var start = new Date().getTime();
+
   runChromeTabsGetSelected(tab => {
     chrome.tabs.sendMessage(
       tab.id,
       { clickEvent: "highlightSelectedColor", rgb, hex, isSelect },
       response => {
         if (response) {
-          console.log(response);
+          var elapsed = new Date().getTime() - start;
+          console.log(elapsed);
         } else {
           hideLoadingBar();
           setStatusText("Doesn't work properly on that web page.");
