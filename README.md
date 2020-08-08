@@ -31,7 +31,7 @@
 - https://github.com/niklasvh/html2canvas
 - https://github.com/highcharts/highcharts
 
-## Progress Note
+## Process Note
 
 Notion
 
