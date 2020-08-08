@@ -8,7 +8,7 @@
 
 - 분석된 각 색상에 대해, 웹 페이지 내 사용되고 있는 위치를 표시.
 
-![image](https://user-images.githubusercontent.com/13481627/89441103-9e066f00-d787-11ea-839b-f0b4e825fb5e.png)
+![image](https://user-images.githubusercontent.com/13481627/89705551-63742080-d999-11ea-91a9-24ed6e502194.png)
 
 ## Installation
 
