@@ -10,8 +10,8 @@ const setStatusText = text => {
   statusText.innerText = text;
 };
 
-const saveChromeStorage = (url, colorInfos) => {
-  chrome.storage.sync.set({ url, colorInfos });
+const saveChromeStorage = saveData => {
+  chrome.storage.sync.set(saveData);
 };
 
 const isValidUrl = url => {
@@ -21,17 +21,16 @@ const isValidUrl = url => {
   );
 };
 
-const onClickColorInChart = (rgb, hex, isSelect) => {
-  var start = new Date().getTime();
-
+const onClickColorInChart = (rgb, isSelect) => {
   runChromeTabsGetSelected(tab => {
     chrome.tabs.sendMessage(
       tab.id,
       { clickEvent: "highlightSelectedColor", rgb, isSelect },
       response => {
         if (response) {
-          var elapsed = new Date().getTime() - start;
-          console.log(elapsed);
+          isSelect
+            ? saveChromeStorage({ selectedRGB: rgb })
+            : saveChromeStorage({ selectedRGB: null });
         } else {
           hideLoadingBar();
           setStatusText("Doesn't work properly on that web page.");
@@ -53,8 +52,9 @@ const executeToAnalyze = tab => {
     if (response) {
       const { colorInfos } = response;
       showColorChart(colorInfos);
-      saveChromeStorage(tab.url, colorInfos);
+      saveChromeStorage({ url: tab.url, colorInfos });
     } else {
+      f;
       hideLoadingBar();
       setStatusText("Doesn't work properly on that web page.");
     }
@@ -71,9 +71,8 @@ const executeColorViewer = tab => {
   chrome.storage.sync.get(data => {
     const isValidStorageData =
       data && data.url && data.colorInfos && data.colorInfos.length;
-
     if (tab.url === data.url && isValidStorageData) {
-      showColorChart(data.colorInfos);
+      showColorChart(data.colorInfos, data.selectedRGB);
     } else {
       executeToAnalyze(tab);
     }

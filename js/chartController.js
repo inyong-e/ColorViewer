@@ -10,14 +10,14 @@ const isGrayScale = (r, g, b) => {
   );
 };
 
-const analyzeDrawingColorData = percentageColors => {
-  percentageColors = percentageColors.slice(0, 20);
+const analyzeDrawingColorData = chartObjectData => {
+  chartObjectData = chartObjectData.slice(0, 20);
   let isAlreadyGrayScale = false;
   let checkGrayScale = false;
 
-  percentageColors = percentageColors.filter(percentageColor => {
-    if (percentageColors.length === 20) {
-      checkGrayScale = isGrayScale(...percentageColor.name.split(","));
+  chartObjectData = chartObjectData.filter(chartData => {
+    if (chartObjectData.length === 20) {
+      checkGrayScale = isGrayScale(...chartData.name.split(","));
       if (!checkGrayScale && !isAlreadyGrayScale) {
         isAlreadyGrayScale = true;
       }
@@ -26,10 +26,10 @@ const analyzeDrawingColorData = percentageColors => {
     const isSmallGrayScale = checkGrayScale && isAlreadyGrayScale;
     return (
       !isSmallGrayScale &&
-      (percentageColors.length < 10 ? true : percentageColor.y >= 100)
+      (chartObjectData.length < 10 ? true : chartData.y >= 100)
     );
   });
-  return percentageColors;
+  return chartObjectData;
 };
 
 const componentToHex = c => {
@@ -46,7 +46,7 @@ const rgbToHex = (r, g, b) => {
   ).toUpperCase();
 };
 
-const setChartData = colorInfos => {
+const makeCharObjectData = (colorInfos, selectedRGB) => {
   let totalAmount = colorInfos.reduce(
     (acc, colorInfo) => acc + colorInfo.amount,
     0,
@@ -66,9 +66,11 @@ const setChartData = colorInfos => {
     } else if (percentage < 1) {
       visible = false;
     }
-
+    const isSelectedPastColor = selectedRGB === `${r},${g},${b}`;
     return {
       visible,
+      sliced: isSelectedPastColor,
+      selected: isSelectedPastColor,
       hex: rgbToHex(r, g, b),
       color: `rgb(${r},${g},${b})`,
       name: `${r},${g},${b}`,
@@ -108,8 +110,7 @@ const drawCharts = data => {
         point: {
           events: {
             click: function (mouseEvent) {
-              // console.log(this.name, this.hex, !this.selected);
-              onClickColorInChart(this.name, this.hex, !this.selected);
+              onClickColorInChart(this.name, !this.selected);
             },
           },
         },
@@ -146,9 +147,9 @@ const drawCharts = data => {
   });
 };
 
-const showColorChart = colorInfos => {
-  const percentageColors = setChartData(colorInfos);
-  const data = analyzeDrawingColorData(percentageColors);
+const showColorChart = (colorInfos, selectedRGB) => {
+  const chartObjectData = makeCharObjectData(colorInfos, selectedRGB);
+  const data = analyzeDrawingColorData(chartObjectData);
 
   hideLoadingBar();
   setStatusText("");
