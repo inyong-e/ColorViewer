@@ -15,26 +15,26 @@ const setClassNameForHighlighting = element => {
   element.className = element.className + " " + HIGHLIGHTING_CLASS_NAME;
 };
 
-const executeHighlighting = (rgb, hex, isSelect) => {
-  const recul = element => {
+const executeHighlighting = (rgb, isSelect) => {
+  const findSetHighlightingElement = element => {
     const style = window.getComputedStyle(element);
-    const result = COLOR_PROPERTIES.some(COLOR => {
-      const propertyValue = style[COLOR];
-
-      return rgb === parseColorKey(propertyValue);
-    });
-    if (result) {
+    const isApplicable = COLOR_PROPERTIES.some(
+      colorProperty => rgb === parseColorKey(style[colorProperty]),
+    );
+    if (isApplicable) {
       setClassNameForHighlighting(element);
     }
-
     if (element.children) {
       for (var childElement of element.children) {
-        attributeColors = recul(childElement);
+        attributeColors = findSetHighlightingElement(childElement);
       }
     }
   };
 
-  recul(document.body);
+  if (isSelect) {
+    findSetHighlightingElement(document.body);
+  } else {
+  }
 };
 
 const removeDuplicationColor = colors => {

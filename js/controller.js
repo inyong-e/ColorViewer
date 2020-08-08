@@ -27,7 +27,7 @@ const onClickColorInChart = (rgb, hex, isSelect) => {
   runChromeTabsGetSelected(tab => {
     chrome.tabs.sendMessage(
       tab.id,
-      { clickEvent: "highlightSelectedColor", rgb, hex, isSelect },
+      { clickEvent: "highlightSelectedColor", rgb, isSelect },
       response => {
         if (response) {
           var elapsed = new Date().getTime() - start;
