@@ -24,12 +24,18 @@
 
 버그를 발견하셨거나 기능 요청이 있으시면 GitHub Issues 목록에 관련 내용을 작성해 주시면 감사하겠습니다.
 
-https://github.com/inyong-e/ColorViewer/issues
+- https://github.com/inyong-e/ColorViewer/issues
 
 ## Using Library
 
 - https://github.com/niklasvh/html2canvas
 - https://github.com/highcharts/highcharts
+
+## Progress Note
+
+Notion
+
+- https://www.notion.so/helloinyong/ColorViewer-0838ad47cbe44c93904c7dc06137b4f0
 
 ## Author
 
