@@ -15,6 +15,16 @@ const setClassNameForHighlighting = element => {
   element.className = element.className + " " + HIGHLIGHTING_CLASS_NAME;
 };
 
+const cancelHighlighting = () => {
+  const highlightingElements = document.getElementsByClassName(
+    HIGHLIGHTING_CLASS_NAME,
+  );
+
+  while (highlightingElements.length) {
+    highlightingElements[0].classList.remove(HIGHLIGHTING_CLASS_NAME);
+  }
+};
+
 const executeHighlighting = (rgb, isSelect) => {
   const findSetHighlightingElement = element => {
     const style = window.getComputedStyle(element);
@@ -34,6 +44,7 @@ const executeHighlighting = (rgb, isSelect) => {
   if (isSelect) {
     findSetHighlightingElement(document.body);
   } else {
+    cancelHighlighting();
   }
 };
 
