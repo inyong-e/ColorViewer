@@ -10,6 +10,8 @@
 
 ![image](https://user-images.githubusercontent.com/13481627/89705551-63742080-d999-11ea-91a9-24ed6e502194.png)
 
+### 해당 도구는 아직 진행 중으로, 분석 결과와 기능이 정확하지 않을 수도 있음을 알려드립니다.
+
 ## Installation
 
 해당 프로젝트를 다운로드 후, 'chrome://extensions'에 접속하여 '압축 해제된 확장 프로그램을 로드합니다.' 기능을 통해 로드 하십시오.
@@ -19,12 +21,6 @@
 특정 웹 페이지에 접속 후, 브라우저 우측 상단의 'ColorViewer' 도구를 클릭하십시오. 그러면 도구는 현재 활성화 되어있는 웹 페이지에 전체를 기준으로 색상 분석을 시작합니다. 분석이 완료되면 결과를 차트로 보여줄 것입니다.
 
 차트의 point 색상 중 하나를 클릭하십시오. 그러면 웹 페이지 내 해당 색상이 사용되고 있는 요소가 무엇인지 알려줄 것입니다.
-
-## Bugs and Features
-
-버그를 발견하셨거나 기능 요청이 있으시면 GitHub Issues 목록에 관련 내용을 작성해 주시면 감사하겠습니다.
-
-- https://github.com/inyong-e/ColorViewer/issues
 
 ## Using Library
 
