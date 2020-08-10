@@ -164,8 +164,8 @@ const getGroupingRgbData = rgbDataArr => {
     const g = rgbDataArr[i + 1];
     const b = rgbDataArr[i + 2];
 
-    if (r > 250 && g > 250 && b > 250) continue;
-    if (r < 10 && g < 10 && b < 10) continue;
+    if (r >= 250 && g >= 250 && b >= 250) continue;
+    if (r <= 10 && g <= 10 && b <= 10) continue;
 
     const key = `${r},${g},${b}`;
     const colorInfo = colorInfos.get(key);
