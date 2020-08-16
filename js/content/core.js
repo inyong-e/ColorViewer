@@ -26,13 +26,25 @@ const cancelHighlighting = () => {
 };
 
 const executeHighlighting = (rgb, isSelect) => {
+  const bodyColor = parseColorKey(window.getComputedStyle(document.body).color);
+
   const findSetHighlightingElement = element => {
     const style = window.getComputedStyle(element);
     const isApplicable = COLOR_PROPERTIES.some(
       colorProperty => rgb === parseColorKey(style[colorProperty]),
     );
     if (isApplicable) {
-      setClassNameForHighlighting(element);
+      if (bodyColor === rgb) {
+        const childNodes = element.childNodes;
+        for (const node of childNodes) {
+          if (node.data && node.data.replace(/ /gi, "")) {
+            setClassNameForHighlighting(element);
+            break;
+          }
+        }
+      } else {
+        setClassNameForHighlighting(element);
+      }
     }
     if (element.children) {
       for (var childElement of element.children) {
