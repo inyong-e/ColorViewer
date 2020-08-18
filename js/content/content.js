@@ -1,10 +1,13 @@
 const exportColor = async () => {
+  var start = new Date().getTime();
+
   const attributeColorsInDOM = getAppliedAttributeColors(document.body);
   const canvasData = await makeCanvas();
 
   const colorInfos = getRGBColors(canvasData.rgbDataArr, attributeColorsInDOM);
   if (colorInfos.length === 0) return null;
-
+  var elapsed = new Date().getTime() - start;
+  console.log(elapsed + "ms");
   return {
     // imageData: canvasData.imageData,
     colorInfos,

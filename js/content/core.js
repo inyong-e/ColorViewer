@@ -174,6 +174,21 @@ const getRGBColors = (rgbDataArr, attributeColors) => {
 
 const getGroupingRgbData = rgbDataArr => {
   const colorInfos = new Map();
+
+  const addAmount = (r, g, b, accAmount) => {
+    const key = `${r},${g},${b}`;
+    const colorInfo = colorInfos.get(key);
+
+    if (colorInfo) {
+      colorInfo.amount = colorInfo.amount + accAmount;
+    } else {
+      colorInfos.set(key, { r, g, b, amount: accAmount });
+    }
+  };
+
+  let accR = (accG = accB = "");
+  let accAmount = 0;
+
   for (let i = 0; i < rgbDataArr.length; i += PIXEL_MEASUREMENT) {
     const r = rgbDataArr[i];
     const g = rgbDataArr[i + 1];
@@ -182,15 +197,19 @@ const getGroupingRgbData = rgbDataArr => {
     if (r >= 250 && g >= 250 && b >= 250) continue;
     if (r <= 10 && g <= 10 && b <= 10) continue;
 
-    const key = `${r},${g},${b}`;
-    const colorInfo = colorInfos.get(key);
-    if (colorInfo) {
-      colorInfo.amount = colorInfo.amount + 1;
-      colorInfos.set(key, colorInfo);
-    } else {
-      colorInfos.set(key, { r, g, b, amount: 1 });
+    if (accR === r && accG === g && accB === b) {
+      accAmount++;
+      continue;
+    } else if (accAmount !== 0) {
+      addAmount(accR, accG, accB, accAmount);
     }
+    accR = r;
+    accG = g;
+    accB = b;
+
+    accAmount = 1;
   }
+  addAmount(accR, accG, accB, accAmount);
 
   return colorInfos;
 };
