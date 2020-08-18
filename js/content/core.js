@@ -36,9 +36,12 @@ const executeHighlighting = (rgb, isSelect) => {
     if (isApplicable) {
       if (bodyColor === rgb) {
         const childNodes = [...element.childNodes];
-        const isExitsInnerText = childNodes.some(
-          node => node.data && node.data.replace(/ /gi, ""),
-        );
+        const isExitsInnerText = childNodes.some(node => {
+          return (
+            node.data &&
+            node.data.replace(/(\r\n\t|\n|\r\t)/gm, "").replace(/(\s*)/g, "")
+          );
+        });
         if (isExitsInnerText) {
           setClassNameForHighlighting(element);
         }
